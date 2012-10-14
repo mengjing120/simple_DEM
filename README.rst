@@ -3,6 +3,8 @@ simple_DEM
 
 A basic CPU-based discrete element method algorithm, created for comparison against more sophisticated codes.
 
+Written by Anders Damsgaard Christensen, `<adc@geo.au.dk>`_, and is maintained at `<https://github.com/anders-dc/simple_DEM>`_.
+
 Requirements
 ------------
 - GNU Make
