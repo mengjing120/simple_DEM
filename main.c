@@ -1,13 +1,13 @@
-#include <iostream>
-#include <cmath>
+#include <stdio.h>
+#include <math.h>
 
-// Structure declarations and function prototypes
+/* Structure declarations and function prototypes */
 #include "header.h"
 
-// Global and constant simulation properties
+/* Global and constant simulation properties */
 #include "global_properties.h"
 
-// Functions for exporting data to VTK formats
+/* Functions for exporting data to VTK formats */
 #include "vtk_export.c"
 
 #include "initialize.c"
@@ -18,69 +18,66 @@
 
 int main()
 {
-  using std::cout;
-  using std::endl;
 
-  cout << "\n## simple_DEM ##\n"
-       << "Particles: " << ng << endl
-       << "maxStep: " << maxStep << endl;
+  printf("\n## simple_DEM ##\n");
+  printf("Particles: %d\n");
+  printf("maxStep: %d\n");
 
 
-  double time = 0.0;	// Time at simulation start
+  double time = 0.0;	/* Time at simulation start */
 
-  // Allocate memory
-  grain* g = new grain[ng];		// Grain structure
+  /* Allocate memory */
+  grain* g = new grain[ng];		/* Grain structure */
 
 
-  // Compute simulation domain dimensions
-  double wleft  = 0.0;			// Left wall
-  double wright = (ngw+1)*2*rmax; 	// Right wall
-  double wdown  = 0.0;			// Lower wall
-  double wup	= (ng/ngw+1)*2*rmax;	// Upper wall
+  /* Compute simulation domain dimensions */
+  double wleft  = 0.0;			/* Left wall */
+  double wright = (ngw+1)*2*rmax; 	/* Right wall */
+  double wdown  = 0.0;			/* Lower wall */
+  double wup	= (ng/ngw+1)*2*rmax;	/* Upper wall */
 
-  // Variables for pressures on walls
+  /* Variables for pressures on walls */
   double wp_up, wp_down, wp_left, wp_right;
 
-  // Initiailze grains inside the simulation domain
+  /* Initiailze grains inside the simulation domain */
   triangular_grid(g);
 
 
 
-  // Main time loop
+  /* Main time loop */
   for (int step = 0; step < maxStep; step++) {
 
-    time += dt;	// Update current time
+    time += dt;	/* Update current time */
 
-    // Predict new kinematics
+    /* Predict new kinematics */
     prediction(g);
 
-    // Calculate contact forces between grains
+    /* Calculate contact forces between grains */
     interact_grains(g);
 
-    // Calculate contact forces between grains and walls
+    /* Calculate contact forces between grains and walls */
     interact_walls(g, wleft, wright, wup, wdown, &wp_up, &wp_down, &wp_left, &wp_right);
 
-    // Update acceleration from forces
+    /* Update acceleration from forces */
     update_acc(g);
 
-    // Correct velocities
+    /* Correct velocities */
     correction(g);
 
-    // Write output files if the fileInterval is reached
+    /* Write output files if the fileInterval is reached */
     if (step % fileInterval == 0) {
       (void)vtk_export_grains(g, step);
-      (void)vtk_export_walls(step, wleft, wright, wdown, wup, wp_up, wp_down, wp_left, wp_right);
       (void)vtk_export_forces(g, step);
     }
 
-  } // End of main time loop
+  } /* End of main time loop */
 
 
-  // Free dynamically allocated memory
+  /* Free dynamically allocated memory */
   delete[] g;
   
 
-  cout << "\nSimulation ended without errors.\n";
-  return 0;	// Terminate successfully
+  printf("\nSimulation ended without errors.\n");
+  return 0;	/* Terminate successfully */
 }
 

@@ -1,23 +1,23 @@
-#include <cmath>
+#include <math.h>
 #include "header.h"
 #include "global_properties.h"
 
-// Compute force between i and upper wall
+/* Compute force between i and upper wall */
 double compute_force_upper_wall(int i, grain* g, double wup)
 {
-  double dn = wup - (g[i].y + g[i].R); // Overlap
+  double dn = wup - (g[i].y + g[i].R); /* Overlap */
   
   if(dn<0.0) {
     double vn,fn;
-    // velocity (wall velocity = 0)
+    /* velocity (wall velocity = 0) */
     vn = g[i].vy;
-    // force
+    /* force */
     fn = -kn * dn - nu * vn;
-    // Update sum of forces on grains
+    /* Update sum of forces on grains */
     g[i].fy -= fn;
-    // Add fn to pressure on grains i
+    /* Add fn to pressure on grains i */
     g[i].p += fn;
-    // Update stress to the wall
+    /* Update stress to the wall */
     return fn;
   }
   return 0.0;
@@ -26,19 +26,19 @@ double compute_force_upper_wall(int i, grain* g, double wup)
 double compute_force_lower_wall(int i, grain* g, double wdown)
 {
 
-  double dn = g[i].y - g[i].R - wdown; // Overlap
+  double dn = g[i].y - g[i].R - wdown; /* Overlap */
   
   if(dn<0.0) {
     double vn,fn;
-    // velocity (wall velocity = 0)
+    /* velocity (wall velocity = 0) */
     vn = g[i].vy;
-    // force
+    /* force */
     fn = - kn * dn - nu * vn;
-    // Update sum of forces on grains
+    /* Update sum of forces on grains */
     g[i].fy += fn;
-    // Add fn to pressure on grains i
+    /* Add fn to pressure on grains i */
     g[i].p += fn;
-    // Update stress to the wall
+    /* Update stress to the wall */
     return fn;
   }
   return 0.0;
@@ -46,19 +46,19 @@ double compute_force_lower_wall(int i, grain* g, double wdown)
 
 double compute_force_left_wall(int i, grain* g, double wleft)
 {
-  double dn = wleft + g[i].x - g[i].R; // Overlap
+  double dn = wleft + g[i].x - g[i].R; /* Overlap */
   
   if(dn<0.0) {
     double vn,fn;
-    // velocity (wall velocity = 0)
+    /* velocity (wall velocity = 0) */
     vn = g[i].vx;
-    // force
+    /* force */
     fn = -kn * dn - nu * vn;
-    // Update sum of forces on grains
+    /* Update sum of forces on grains */
     g[i].fx += fn;
-    // Add fn to pressure on grains i
+    /* Add fn to pressure on grains i */
     g[i].p += fn;
-    // Update stress to the wall
+    /* Update stress to the wall */
     return fn;
   }
   return 0.0;
@@ -67,19 +67,19 @@ double compute_force_left_wall(int i, grain* g, double wleft)
 
 double compute_force_right_wall(int i, grain* g, double wright)
 {
-  double dn = wright - (g[i].x + g[i].R); // Overlap
+  double dn = wright - (g[i].x + g[i].R); /* Overlap */
   
   if(dn<0.0) {
     double vn,fn;
-    // velocity (wall velocity = 0)
+    /* velocity (wall velocity = 0) */
     vn = -g[i].vx;
-    // force
+    /* force */
     fn = -kn * dn - nu * vn;
-    // Update sum of forces on grains
+    /* Update sum of forces on grains */
     g[i].fx -= fn;
-    // Add fn to pressure on grains i
+    /* Add fn to pressure on grains i */
     g[i].p += fn;
-    // Update stress to the wall
+    /* Update stress to the wall */
     return fn;
   }
   return 0.0;
