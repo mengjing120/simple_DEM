@@ -22,3 +22,6 @@ Running
 Simply execute ``./simple_DEM`` in the root folder. Output is written to the ``output/`` folder. 
 All simulation parameters must be specified in ``global_properties.h`` before compiling. If any parameters are changed, run ``make`` in the root folder.
 
+License
+-------
+The code is licenced under the GNU Public License V.3, see ``license.txt`` for details.
