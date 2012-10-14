@@ -5,18 +5,19 @@
 
 void triangular_grid(grain* g)
 {
+  int i;
   /* Initialize grain properties */
-  for (int i = 0; i < ng; i++) {
+  for (i = 0; i < np; ++i) {
     g[i].R = (rand() / (double)RAND_MAX) * (rmax - rmin) + rmin;
     g[i].m = M_PI * rho * g[i].R * g[i].R;
     g[i].I = 0.5 * g[i].m * g[i].R * g[i].R;
     g[i].p = 0.0;
   }
 
-  /* Initialize grain positions in a triangular grid */
-  for (int i = 0; i < ng; i++) {
-    int column 	= i%ngw;
-    int row 	= i/ngw;
+  /* Initialize grain positions in a trianpular grid */
+  for (i = 0; i < np; ++i) {
+    int column 	= i%npw;
+    int row 	= i/npw;
 
     if (row%2 == 0) 	/* Even row */
       g[i].x = rmax + 2*column*rmax;

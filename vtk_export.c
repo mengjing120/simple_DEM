@@ -5,14 +5,15 @@
 int vtk_export_grains(grain* g, int numfile)
 {
   FILE* fout;
+  int i;
 
   char filename[25]; /* File name */
   sprintf(filename, "output/grains%04d.vtk", numfile);
 
   if ((fout = fopen(filename, "wt")) == NULL) {
-    printf("vtk_export error, cannot open ")
-    printf(filename);
-    printf("!\n");
+    fprintf(stderr, "vtk_export error, cannot open ");
+    fprintf(stderr, filename);
+    fprintf(stderr, "!\n");
     return 1;
   }
 
@@ -26,31 +27,31 @@ int vtk_export_grains(grain* g, int numfile)
   fprintf(fout, "ASCII\nDATASET UNSTRUCTURED_GRID\n");
 
   /* Grain coordinates */
-  fprintf(fout, "POINTS %d FLOAT\n", ng);
-  for (int i = 0; i < ng; i++)
+  fprintf(fout, "POINTS %d FLOAT\n", np);
+  for (i = 0; i < np; i++)
     fprintf(fout, "%f %f 0.0\n", g[i].x, g[i].y);
-  fprintf(fout, "POINT_DATA %d\n", ng);
+  fprintf(fout, "POINT_DATA %d\n", np);
 
   /* Grain radii */
   fprintf(fout, "VECTORS Radius float\n");
-  for (int i = 0; i < ng; i++) 
+  for (i = 0; i < np; i++) 
     fprintf(fout, "%f 0.0 0.0\n", g[i].R);
 
   /* Grain velocities */
   fprintf(fout, "VECTORS Velocity float\n");
-  for (int i = 0; i < ng; i++) 
+  for (i = 0; i < np; i++) 
     fprintf(fout, "%f %f 0.0\n", g[i].vx, g[i].vy);
 
   /* Pressure */
   fprintf(fout, "SCALARS Pressure float 1\n");
   fprintf(fout, "LOOKUP_TABLE default\n");
-  for (int i = 0; i < ng; i++) 
+  for (i = 0; i < np; i++) 
     fprintf(fout, "%e\n", g[i].p);
 
-  /* Angular velocity */
-  fprintf(fout, "SCALARS Angvel float 1\n");
+  /* Anpular velocity */
+  fprintf(fout, "SCALARS Anpvel float 1\n");
   fprintf(fout, "LOOKUP_TABLE default\n");
-  for (int i = 0; i < ng; i++)
+  for (i = 0; i < np; i++)
     fprintf(fout, "%e\n", g[i].vth);
   
   fclose(fout);
@@ -65,7 +66,9 @@ int vtk_export_forces(grain* g, int numfile)
   sprintf(filename, "output/forces%04d.vtk", numfile);
 
   if ((fout = fopen(filename, "wt")) == NULL) {
-    std::cout << "vtk_export error, cannot open " << filename << "!\n";
+    fprintf(stderr,"vtk_export error, cannot open ");
+    fprintf(stderr, filename);
+    fprintf(stderr, "!\n");
     return 1;
   }
 

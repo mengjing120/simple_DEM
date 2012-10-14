@@ -1,9 +1,14 @@
+#include <math.h>
+#include "header.h"
+#include "global_properties.h"
+
+
 void prediction(grain* g)
 {
   int i;
 
   #pragma omp parallel for shared(g) private (i)
-  for (i = 0; i < ng; i++) {
+  for (i = 0; i < np; i++) {
     /* Predict positions and velocities */
     g[i].x   += dt * g[i].vx + 0.5 * dt * dt * g[i].ax;
     g[i].y   += dt * g[i].vy + 0.5 * dt * dt * g[i].ay;
@@ -37,7 +42,7 @@ void interparticle_force(grain* g, int a, int b)
 
     if (dn < 0.0) { /* Contact */
       double xn, yn, vn, fn; /* Normal components */
-      double xt, yt, vt, ft; /* Tangential components */
+      double xt, yt, vt, ft; /* Tanpential components */
       /* Local axes */
       xn = x_ab / dist;
       yn = y_ab / dist;
@@ -84,10 +89,10 @@ void interact_grains(grain* g)
   int a, b;
   #pragma omp parallel for shared(g) private (a,b)
   /* Loop through particle a */
-  for (a = 0; a < ng; a++) {
+  for (a = 0; a < np; a++) {
    
     /* Loop through particle b */
-    for (b = 0; b < ng; b++) {
+    for (b = 0; b < np; b++) {
       interparticle_force(g, a, b);  
     }
 
@@ -99,7 +104,7 @@ void update_acc(grain* g)
 {
   int i;
   #pragma omp parallel for shared(g) private (i)
-  for (i = 0; i < ng; i++) {
+  for (i = 0; i < np; i++) {
     g[i].ax = g[i].fx / g[i].m;
     g[i].ay = g[i].fy / g[i].m - grav;
     g[i].ath = g[i].fth / g[i].I;
@@ -110,7 +115,7 @@ void correction(grain* g)
 {
   int i;
   #pragma omp parallel for shared(g) private (i)
-  for (i = 0; i < ng; i++) {
+  for (i = 0; i < np; i++) {
     g[i].vx  += 0.5 * dt * g[i].ax;
     g[i].vy  += 0.5 * dt * g[i].ay;
     g[i].vth += 0.5 * dt * g[i].ath;

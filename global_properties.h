@@ -2,29 +2,28 @@
 #define GLOBAL_PROPERTIES_H_
 
 /* Properties of sample */
-const int ng = 5000; 		/* Number of grains */
+static const int np = 1000; 		/* Number of particles */
 
 /* Size distribution */
-const double rmin = 1e-3;	/* Min. radius */
-const double rmax = 2e-3; 	/* Max. radius */
+static const double rmin = 1.0e-3;	/* Min. radius */
+static const double rmax = 2.0e-3; 	/* Max. radius */
 
 /* Properties of grains */
-const double kn = 1e5;		/* Normal stiffness */
-const double nu = 30;		/* Normal damping */
-const double rho = 1000;	/* Density of the grains */
-const double mu = 0.5;		/* Sliding friction */
-const double kt = kn;		/* Tangential stiffness */
+static const double kn = 1.0e5;		/* Normal stiffness */
+static const double nu = 30.0;		/* Normal damping */
+static const double rho = 1000.0;	/* Density of the grains */
+static const double mu = 0.5;		/* Sliding friction */
+static const double kt = 1.0e5;		/* Tangential stiffness */
 
 /* Temporal variables */
-const double dt = 1e-4;		/* Time step length */
-const int maxStep = 3000;	/* Number of steps */
-const int fileInterval = 20;	/* No. of steps between output */
+static const double dt = 1.0e-4;	/* Time step lenpth */
+static const int maxStep = 3000;	/* Number of steps */
+static const int fileInterval = 20;	/* No. of steps between output */
 
 /* Physical constants */
-const double grav = 9.80;	/* Gravity */
+static const double grav = 9.80;	/* Gravity magnitude */
 
-/* Number of grains along the width in the initial configuration */
-const int ngw = 100;
+/* Number of particles along the width in the initial configuration */
+static const int npw = 100;
 
 #endif
-

@@ -1,19 +1,19 @@
-CC=g++
-CFLAGS=-c -Wall -O2
-LDFLAGS=
-#CFLAGS=-c -Wall -O2 -fopenmp -g -G
+CC=gcc
+CFLAGS=-Wall -O2
+LDFLAGS=-lm
+#CFLAGS=-Wall -O2 -fopenmp -g -G
 #LDFLAGS=-fopenmp
-SOURCES=main.c
-OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=simple_DEM
+SRC=grains.c initialize.c main.c vtk_export.c walls.c
+OBJ=$(SRC:.c=.o)
+BIN=simple_DEM
+DEPS=header.h global_properties.h
 
-all: $(SOURCES) $(EXECUTABLE)
-	
-$(EXECUTABLE): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+$(BIN): $(OBJ)
+	$(CC) $(LDFLAGS) $^ -o $@
 
-.c.o:
-	$(CC) $(CFLAGS) $< -o $@
+%.o:	%.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 clean:
-	rm -f $(EXECUTABLE) *.o output/*
+	$(RM) $(BIN) $(OBJ) output/*
+

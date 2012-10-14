@@ -7,34 +7,26 @@
 /* Global and constant simulation properties */
 #include "global_properties.h"
 
-/* Functions for exporting data to VTK formats */
-#include "vtk_export.c"
 
-#include "initialize.c"
-#include "grains.c"
-#include "walls.c"
-
-
-
-int main()
+int main(int argc, char* argv[])
 {
 
   printf("\n## simple_DEM ##\n");
-  printf("Particles: %d\n");
-  printf("maxStep: %d\n");
+  printf("Particles: %d\n", np);
+  printf("maxStep: %d\n", maxStep);
 
 
   double time = 0.0;	/* Time at simulation start */
 
   /* Allocate memory */
-  grain* g = new grain[ng];		/* Grain structure */
+  grain g[np];		/* Grain structure */
 
 
   /* Compute simulation domain dimensions */
   double wleft  = 0.0;			/* Left wall */
-  double wright = (ngw+1)*2*rmax; 	/* Right wall */
+  double wright = (npw+1)*2*rmax; 	/* Right wall */
   double wdown  = 0.0;			/* Lower wall */
-  double wup	= (ng/ngw+1)*2*rmax;	/* Upper wall */
+  double wup	= (np/npw+1)*2*rmax;	/* Upper wall */
 
   /* Variables for pressures on walls */
   double wp_up, wp_down, wp_left, wp_right;
@@ -45,7 +37,8 @@ int main()
 
 
   /* Main time loop */
-  for (int step = 0; step < maxStep; step++) {
+  int step;
+  for (step = 0; step < maxStep; ++step) {
 
     time += dt;	/* Update current time */
 
@@ -74,7 +67,7 @@ int main()
 
 
   /* Free dynamically allocated memory */
-  delete[] g;
+  /*free(g);*/
   
 
   printf("\nSimulation ended without errors.\n");

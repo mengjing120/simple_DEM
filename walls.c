@@ -96,7 +96,7 @@ void interact_walls(grain* g, double wleft, double wright, double wup, double wd
   int i;
 
   #pragma omp parallel for shared(g, u, d, r, l) private (i)
-  for (i = 0; i < ng; i++) {
+  for (i = 0; i < np; i++) {
     u += compute_force_upper_wall(i, g, wup);
     d += compute_force_lower_wall(i, g, wdown);
     r += compute_force_right_wall(i, g, wright);
