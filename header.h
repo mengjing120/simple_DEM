@@ -7,10 +7,10 @@ typedef struct
   double m; 		/* Mass */
   double R;		/* Radius */
   double I; 		/* Inertia */
-  double x, y, th;	/* Position */
-  double vx, vy, vth;	/* Velocities */
-  double ax, ay, ath;	/* Acceleration */
-  double fx, fy, fth;	/* Sum of forces, decomposed */
+  double x, y, ang;	/* Position */
+  double vx, vy, angv;	/* Velocities */
+  double ax, ay, anga;	/* Acceleration */
+  double fx, fy, t;	/* Sum of forces, decomposed */
   double p;		/* Pressure */
 } grain;
 

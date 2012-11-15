@@ -52,7 +52,7 @@ int vtk_export_grains(grain* g, int numfile)
   fprintf(fout, "SCALARS Anpvel float 1\n");
   fprintf(fout, "LOOKUP_TABLE default\n");
   for (i = 0; i < np; i++)
-    fprintf(fout, "%e\n", g[i].vth);
+    fprintf(fout, "%e\n", g[i].angv);
   
   fclose(fout);
   return 0;
