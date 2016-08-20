@@ -12,7 +12,7 @@ int vtk_export_grains(grain* g, int numfile)
 
   if ((fout = fopen(filename, "wt")) == NULL) {
     fprintf(stderr, "vtk_export error, cannot open ");
-    fprintf(stderr, filename);
+    fprintf(stderr, "%s", filename);
     fprintf(stderr, "!\n");
     return 1;
   }
@@ -67,7 +67,7 @@ int vtk_export_forces(grain* g, int numfile)
 
   if ((fout = fopen(filename, "wt")) == NULL) {
     fprintf(stderr,"vtk_export error, cannot open ");
-    fprintf(stderr, filename);
+    fprintf(stderr, "%s", filename);
     fprintf(stderr, "!\n");
     return 1;
   }
