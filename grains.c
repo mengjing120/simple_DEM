@@ -50,7 +50,7 @@ void interparticle_force(grain* g, int a, int b)
       yt = xn;
 
       /* Compute the velocity of the contact */
-      double vx_ab = g[a].vx - g[b].vy;
+      double vx_ab = g[a].vx - g[b].vx;
       double vy_ab = g[a].vy - g[b].vy;
       vn = vx_ab*xn + vy_ab*yn;
       vt = vx_ab*xt + vy_ab*yt - (g[a].R*g[a].angv + g[b].R*g[b].angv);
