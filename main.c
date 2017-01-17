@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
   /* Allocate memory */
   grain g[np];		/* Grain structure */
 
-
   /* Compute simulation domain dimensions */
   double wleft  = 0.0;			/* Left wall */
   double wright = (npw+1)*2*rmax; 	/* Right wall */
@@ -33,7 +32,6 @@ int main(int argc, char* argv[])
 
   /* Initiailze grains inside the simulation domain */
   triangular_grid(g);
-
 
 
   /* Main time loop */
@@ -65,10 +63,8 @@ int main(int argc, char* argv[])
 
   } /* End of main time loop */
 
-
   /* Free dynamically allocated memory */
   /*free(g);*/
-  
 
   printf("\nSimulation ended without errors.\n");
   return 0;	/* Terminate successfully */

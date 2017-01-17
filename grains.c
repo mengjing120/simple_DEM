@@ -42,7 +42,7 @@ void interparticle_force(grain* g, int a, int b)
 
     if (dn < 0.0) { /* Contact */
       double xn, yn, vn, fn; /* Normal components */
-      double xt, yt, vt, ft; /* Tanpential components */
+      double xt, yt, vt, ft; /* Tangential components */
       /* Local axes */
       xn = x_ab / dist;
       yn = y_ab / dist;
@@ -60,12 +60,12 @@ void interparticle_force(grain* g, int a, int b)
 
       /* Rotation */
       if (fn < 0) 
-	fn = 0.0;
+          fn = 0.0;
       ft = fabs(kt * vt);
       if (ft > mu*fn) /* Coefficient of friction */
-	ft = mu*fn;
+          ft = mu*fn;
       if (vt > 0)
-	ft = -ft;
+          ft = -ft;
 
       /* Calculate sum of forces on a and b in global coordinates */
       g[a].fx  += fn * xn;
@@ -95,9 +95,7 @@ void interact_grains(grain* g)
     for (b = 0; b < np; b++) {
       interparticle_force(g, a, b);  
     }
-
   }
-
 }
 
 void update_acc(grain* g)

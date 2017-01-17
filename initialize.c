@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include "header.h"
 #include "global_properties.h"
@@ -12,6 +13,13 @@ void triangular_grid(grain* g)
     g[i].m = M_PI * rho * g[i].R * g[i].R;
     g[i].I = 0.5 * g[i].m * g[i].R * g[i].R;
     g[i].p = 0.0;
+    g[i].ang = 0.0;
+    g[i].angv = 0.0;
+    g[i].anga = 0.0;
+    g[i].ax = 0.0;
+    g[i].ay = 0.0;
+    g[i].vx = 0.0;
+    g[i].vy = 0.0;
   }
 
   /* Initialize grain positions in a trianpular grid */

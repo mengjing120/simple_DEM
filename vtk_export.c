@@ -33,14 +33,31 @@ int vtk_export_grains(grain* g, int numfile)
   fprintf(fout, "POINT_DATA %d\n", np);
 
   /* Grain radii */
-  fprintf(fout, "VECTORS Radius float\n");
+  fprintf(fout, "SCALARS Diameter float 1\n");
+  fprintf(fout, "LOOKUP_TABLE default\n");
   for (i = 0; i < np; i++) 
-    fprintf(fout, "%f 0.0 0.0\n", g[i].R);
+    fprintf(fout, "%f\n", g[i].R*2.0);
+
+  /* Grain radii */
+  fprintf(fout, "SCALARS Mass float 1\n");
+  fprintf(fout, "LOOKUP_TABLE default\n");
+  for (i = 0; i < np; i++) 
+    fprintf(fout, "%f\n", g[i].m);
+
+  fprintf(fout, "SCALARS MomentOfInertia float 1\n");
+  fprintf(fout, "LOOKUP_TABLE default\n");
+  for (i = 0; i < np; i++) 
+    fprintf(fout, "%g\n", g[i].I);
 
   /* Grain velocities */
   fprintf(fout, "VECTORS Velocity float\n");
   for (i = 0; i < np; i++) 
     fprintf(fout, "%f %f 0.0\n", g[i].vx, g[i].vy);
+
+  /* Grain velocities */
+  fprintf(fout, "VECTORS Force float\n");
+  for (i = 0; i < np; i++) 
+    fprintf(fout, "%f %f 0.0\n", g[i].fx, g[i].fy);
 
   /* Pressure */
   fprintf(fout, "SCALARS Pressure float 1\n");
@@ -48,8 +65,8 @@ int vtk_export_grains(grain* g, int numfile)
   for (i = 0; i < np; i++) 
     fprintf(fout, "%e\n", g[i].p);
 
-  /* Anpular velocity */
-  fprintf(fout, "SCALARS Anpvel float 1\n");
+  /* Angular velocity */
+  fprintf(fout, "SCALARS Angvel float 1\n");
   fprintf(fout, "LOOKUP_TABLE default\n");
   for (i = 0; i < np; i++)
     fprintf(fout, "%e\n", g[i].angv);
