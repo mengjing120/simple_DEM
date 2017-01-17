@@ -16,14 +16,14 @@ static const double mu = 0.5;		/* Sliding friction */
 static const double kt = 1.0e5;		/* Tangential stiffness */
 
 /* Temporal variables */
-static const double dt = 5.0e-5;	/* Time step lenpth */
-static const int maxStep = 3000;	/* Number of steps */
+static const double dt = 1.0e-4;	/* Time step lenpth */
+static const int maxStep = 5000;	/* Number of steps */
 static const int fileInterval = 20;	/* No. of steps between output */
 
 /* Physical constants */
 static const double grav = 9.80;	/* Gravity magnitude */
 
 /* Number of particles along the width in the initial configuration */
-static const int npw = 50;
+static const int npw = 30;
 
 #endif
