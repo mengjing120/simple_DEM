@@ -9,7 +9,7 @@ BIN=simple_DEM
 DEPS=header.h global_properties.h
 
 $(BIN): $(OBJ)
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 %.o:	%.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
